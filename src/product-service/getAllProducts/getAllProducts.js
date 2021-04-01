@@ -1,12 +1,6 @@
 import { products } from '../../products'
+import { createResponse } from '../../utils/api-response';
 
 export const getAllProducts = async () => {
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            products,
-            count: products.length
-        }),
-    };
+    return createResponse(200, { products, count: products.length })
 };
