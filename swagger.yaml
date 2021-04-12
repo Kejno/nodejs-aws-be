@@ -5,7 +5,7 @@ info:
     AWS API Gateway endpoints to work with products
   version: 0.0.1
 servers:
-  - url: https://sehu4cp40h.execute-api.eu-west-1.amazonaws.com/dev
+  - url: https://ozb1ktjb3l.execute-api.eu-west-1.amazonaws.com/dev
 tags:
   - name: Electronics
 paths:
