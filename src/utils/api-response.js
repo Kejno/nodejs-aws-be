@@ -8,7 +8,11 @@ export const createResponse = (statusCode, data, message, isError = false) => {
   }
 
   return {
-    statusCode: statusCode,
+    statusCode,
+    headers: {
+      "Access-Control-Allow-Origin" : "*", 
+      "Access-Control-Allow-Credentials" : true 
+    },
     body: JSON.stringify(
       isError ? errorTemplate : data,
     ),
