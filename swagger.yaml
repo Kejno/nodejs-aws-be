@@ -1,0 +1,159 @@
+openapi: '3.0.0'
+info:
+  title: Product Service
+  description: |
+    AWS API Gateway endpoints to work with products
+  version: 0.0.1
+servers:
+  - url: https://ozb1ktjb3l.execute-api.eu-west-1.amazonaws.com/dev
+tags:
+  - name: Electronics
+paths:
+  /products:
+    get:
+      tags:
+        - Electronics
+      summary: Get all products in store
+      description: Get all products in store
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductsSuccessResponse'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+  /products/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: Product id
+        schema:
+          type: string
+          example: '5804cb94-cc98-431c-8195-b15695a7700d'
+    get:
+      tags:
+        - Electronics
+      summary: Get product by id
+      description: Get product by id
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/InternalServerError'
+components:
+  responses:
+    BadRequest:
+      description: You did not provided required parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BadRequestError'
+    NotFound:
+      description: Item not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFound'
+    InternalServerError:
+      description: Common server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+  schemas:
+    BadRequestError:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 400
+        error:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'BAD_REQUEST'
+            message:
+              type: string
+              example: 'Missing required parameters'
+    NotFound:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 404
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: 'Product with 5804cb94-cc98-431c-8195-b15695a7700e not found.'
+    InternalServerError:
+      type: object
+      properties:
+        statusCode:
+          type: number
+          example: 500
+        error:
+          type: object
+          properties:
+            name:
+              type: string
+              example: 'INTERNAL_SERVER'
+            message:
+              type: string
+              example: 'Internal server error'
+    ProductsSuccessResponse:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        count:
+          type: number
+          example: 10
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '6a5d2c9f-1709-414e-b1f0-0faae23c9b2d'
+        name:
+          type: string
+          example: 'Airpods Wireless Bluetooth Headphones'
+        image:
+          type: string
+          example: '/images/airpods.jpg'
+        description:
+          type: string
+          example: 'Bluetooth technology lets you connect it with compatible devices'
+        brand:
+          type: string
+          example: 'Apple'
+        category:
+          type: string
+          example: 'Electronics'
+        price:
+          type: number
+          example: 90
+        countInStock:
+          type: number
+          example: 5
+        rating:
+          type: number
+          example: 4.5
+        numReviews:
+          type: number
+          example: 8
