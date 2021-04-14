@@ -1,4 +1,4 @@
-import { Client } from 'pg'
+import { Pool } from 'pg'
 
 const { PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME, PG_PASSWORD } = process.env;
 const dbOptions = {
@@ -13,4 +13,4 @@ const dbOptions = {
   connectionTimeoutMillis: 5000
 }
 
-export const client = new Client(dbOptions)
+export const client = new Pool(dbOptions)

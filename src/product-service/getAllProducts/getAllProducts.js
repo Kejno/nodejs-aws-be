@@ -1,13 +1,15 @@
 import { client } from '../../db-service/db-client'
 import { createResponse } from '../../utils/api-response';
 
+let pool;
+
 export const getAllProducts = async () => {
 
-    await client.connect()
+    pool = await client.connect()
 
     try {
 
-        const { rows: products } = await client.query(`SELECT product.*, stock.count FROM product LEFT JOIN stock ON stock.product_id=product.id`);
+        const { rows: products } = await pool.query(`SELECT product.*, stock.count FROM product LEFT JOIN stock ON stock.product_id=product.id`);
         console.log({ products, count: products.length })
         return createResponse(200, { products, count: products.length });
 
@@ -17,7 +19,7 @@ export const getAllProducts = async () => {
 
     } finally {
 
-        client.end();
+        pool.release();
 
     }
 };
