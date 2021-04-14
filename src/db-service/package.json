@@ -4,6 +4,7 @@
   "description": "NODEJS in AWS from EPAM 2021",
   "main": "index.js",
   "scripts": {
+    "test": "jest"
   },
   "repository": {
     "type": "git",

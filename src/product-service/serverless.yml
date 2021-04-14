@@ -1,13 +1,12 @@
-service: db-service
+service: product-service
 
 plugins:
   - serverless-s3-deploy
-  - serverless-functions-base-path
   - serverless-webpack
 
 custom:
   webpack:
-    webpackConfig: webpack.config.js
+    webpackConfig: ../../webpack.config.js
     includeModules: true
 
 frameworkVersion: '2'
@@ -26,8 +25,17 @@ provider:
     PG_PASSWORD: 5354431Am
 
 functions:
-  createAndFillDb:
-    handler: src/db-service/createAndFillDb.createAndFillDb
+  getAllProducts:
+    handler: handler.getAllProducts
+    events:
+      - http:
+          path: products
+          method: get
+  getProductById:
+    handler: handler.getProductById
+    events:
+      - http:
+          path: products/{id}
+          method: get
 
-  
 
