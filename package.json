@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "NODEJS in AWS from EPAM 2021",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Kejno/nodejs-aws-be.git"
@@ -32,6 +31,7 @@
     "jest": "^26.6.3",
     "pg": "^8.5.1",
     "pg-format": "^1.0.4",
-    "serverless-s3-deploy": "^0.10.0"
+    "serverless-s3-deploy": "^0.10.0",
+    "uuid": "^8.3.2"
   }
 }

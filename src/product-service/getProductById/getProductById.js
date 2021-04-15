@@ -1,4 +1,4 @@
-import { client } from '../../db-service/db-client'
+import { client } from '../../db/db-client'
 import { createResponse } from '../../utils/api-response';
 
 let pool;
@@ -6,7 +6,7 @@ let pool;
 export const getProductById = async (event) => {
 
   const { id } = event.pathParameters;
-  
+
   pool = await client.connect();
 
   try {
