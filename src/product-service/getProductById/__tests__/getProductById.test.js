@@ -13,7 +13,7 @@ describe('getAllProducts.js', () => {
 
     await getProductById({ pathParameters: { id } });
 
-    expect(createResponse).toHaveBeenCalledWith(200, products.find(item => item.id === id));;
+    expect(createResponse).toHaveBeenCalledWith(200, products.find(item => item.id === id));
   });
 
   test('should return 404 error if item not found', async () => {

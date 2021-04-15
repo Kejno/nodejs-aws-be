@@ -9,7 +9,7 @@ export const createProduct = async (event) => {
 
     pool = await client.connect();
 
-    const body = JSON.parse(event.body || '{}');
+    const body = JSON.parse(event.body || '{}')
 
     const {
         name, image, description, brand, category, price, rating, numReviews, count

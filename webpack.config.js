@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
 const webpack = require('webpack');
