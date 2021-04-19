@@ -1,6 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "lint-staged",
-    "pre-push": "tsc --noEmit && tsc -p deploy && tsc -p .eslintts && jest --coverage --silent --maxWorkers 50%"
-  }
-}
