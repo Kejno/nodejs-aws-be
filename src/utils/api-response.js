@@ -5,7 +5,7 @@ export const createResponse = (statusCode, data, message, isError = false) => {
     error: {
       message
     }
-  }
+  };
 
   return {
     statusCode,
@@ -16,5 +16,5 @@ export const createResponse = (statusCode, data, message, isError = false) => {
     body: JSON.stringify(
       isError ? errorTemplate : data,
     ),
-  }
+  };
 };

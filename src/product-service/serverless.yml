@@ -1,28 +1,46 @@
-
 service: product-service
+
 plugins:
   - serverless-webpack
+
 custom:
   webpack:
-    webpackConfig: webpack.config.js
+    webpackConfig: ../../webpack.config.js
     includeModules: true
+
 frameworkVersion: '2'
+
 provider:
   name: aws
   runtime: nodejs12.x
   stage: dev
   region: eu-west-1
+
+  environment:
+    PG_HOST: lesson4
+    PG_PORT: 5432
+    PG_DATABASE: lesson4
+    PG_USERNAME: postgres
+    PG_PASSWORD: 123456
+
 functions:
   getAllProducts:
-    handler: src/product-service/handler.getAllProducts
+    handler: handler.getAllProducts
     events:
       - http:
           path: products
           method: get
   getProductById:
-    handler: src/product-service/handler.getProductById
+    handler: handler.getProductById
     events:
       - http:
           path: products/{id}
           method: get
+  createProduct:
+    handler: handler.createProduct
+    events:
+      - http:
+          path: products
+          method: post
+
 

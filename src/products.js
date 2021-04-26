@@ -77,5 +77,5 @@ export const products = [
         rating: 4.5,
         numReviews: 8,
     },
-]
+];
 
