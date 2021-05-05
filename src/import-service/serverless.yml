@@ -1,0 +1,51 @@
+
+service: import-service
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ../../webpack.config.js
+    includeModules: true
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: "s3:ListBucket"
+      Resource: 
+        - "arn:aws:s3:::import-service-task-5"
+    - Effect: "Allow"
+      Action:
+        - "s3:*"
+      Resource:
+        - "arn:aws:s3:::import-service-task-5/*"
+
+functions:
+  importProductsFile:
+    handler: handler.importProductsFile
+    events:
+      - http:
+          path: import
+          method: get
+          request:
+            parameters:
+              querystrings:
+                name: false
+  getUploadedList:
+    handler: handler.getUploadedList
+    events:
+      - http:
+          path: uploaded
+          method: get
+
+
+
+
