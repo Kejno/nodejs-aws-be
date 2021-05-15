@@ -42,9 +42,12 @@ functions:
   getUploadedList:
     handler: handler.getUploadedList
     events:
-      - http:
-          path: uploaded
-          method: get
+    - s3:
+        bucket: import-service-task-5
+        event: s3:ObjectCreated:*
+        rules:
+          - prefix: uploaded/
+        existing: true
 
 
 
