@@ -14,8 +14,7 @@ export const catalogBatchProcess = async (event) => {
   try {
     for (const record of event.Records) {
       console.log(record.body);
-     // const data = JSON.parse(record.body);
-      const data = record.body;
+     const data = JSON.parse(record.body);
 
       const newProduct = await createProduct(data, client);
 
