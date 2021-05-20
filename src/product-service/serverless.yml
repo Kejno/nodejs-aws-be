@@ -17,11 +17,40 @@ provider:
   region: eu-west-1
 
   environment:
-    PG_HOST: lesson4
+    PG_HOST: lesson4.cwnmiwlsfcrn.eu-west-1.rds.amazonaws.com
     PG_PORT: 5432
     PG_DATABASE: lesson4
     PG_USERNAME: postgres
-    PG_PASSWORD: 123456
+    PG_PASSWORD: 5354431Am
+    SQS_URL: !Ref catalogItemsQueue
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action: "sqs:*"
+      Resource:
+        - Fn::GetAtt: [catalogItemsQueue, Arn]
+    - Effect: Allow
+      Action: "sns:*"
+      Resource:
+        - !Ref createProductTopic
+
+resources:
+  Resources:
+    catalogItemsQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: sqs-task6
+    createProductTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: sns-topic-task-6
+    createProductSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: Artsiom_Rymarchuk@epam.com
+        Protocol: email
+        TopicArn:
+          Ref: createProductTopic
 
 functions:
   getAllProducts:
@@ -42,5 +71,14 @@ functions:
       - http:
           path: products
           method: post
+  catalogBatchProcess:
+    handler: handler.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 5
+          arn:
+            Fn::GetAtt: 
+              - catalogItemsQueue
+              - Arn
 
 
