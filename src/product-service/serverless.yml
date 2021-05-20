@@ -23,6 +23,7 @@ provider:
     PG_USERNAME: postgres
     PG_PASSWORD: 5354431Am
     SQS_URL: !Ref catalogItemsQueue
+    SNS_ARN: !Ref createProductTopic
 
   iamRoleStatements:
     - Effect: Allow
@@ -49,6 +50,16 @@ resources:
       Properties:
         Endpoint: Artsiom_Rymarchuk@epam.com
         Protocol: email
+        TopicArn:
+          Ref: createProductTopic
+    createProductSubscriptionWithFilterPolicy:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: Artsiom.Rymarchuk@coxautoinc.com
+        Protocol: email
+        FilterPolicy:
+          name:
+            - "Iphone"
         TopicArn:
           Ref: createProductTopic
 

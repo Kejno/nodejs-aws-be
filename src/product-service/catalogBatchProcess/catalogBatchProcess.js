@@ -13,17 +13,17 @@ export const catalogBatchProcess = async (event) => {
 
   try {
     for (const record of event.Records) {
-      console.log(record.body);
-     const data = JSON.parse(record.body);
 
-      const newProduct = await createProduct(data, client);
+     const data = JSON.parse(record.body);
+     console.log('typeof record', typeof data);
+      const newProduct = await createProduct({body: JSON.stringify(data)});
 
       if (newProduct) {
         sns.publish({
           Subject: 'New product created',
           Message: JSON.stringify(data),
           MessageAttributes: {
-            title: {
+            name: {
               DataType: 'String',
               StringValue: data.name
             }
@@ -33,7 +33,7 @@ export const catalogBatchProcess = async (event) => {
           if (error) {
             console.log(`Error for send email: ${error}`);
           } else {
-            console.log(`Send email for ${data.title}`);
+            console.log(`Send email for ${data.name}`);
           }
         });
       }
