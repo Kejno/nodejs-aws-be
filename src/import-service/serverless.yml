@@ -27,6 +27,10 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::import-service-task-5/*"
+    - Effect: Allow
+      Action: "sqs:*"
+      Resource:
+        - "arn:aws:sqs:eu-west-1:761799363911:sqs-task6"
 
 functions:
   importProductsFile:
@@ -55,6 +59,7 @@ functions:
         rules:
           - prefix: uploaded/
         existing: true
+
 
 
 
