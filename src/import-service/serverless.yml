@@ -39,6 +39,13 @@ functions:
             parameters:
               querystrings:
                 name: false
+          authorizer:
+            name: basicAuthorizer
+            arn: arn:aws:lambda:eu-west-1:761799363911:function:authorization-service-dev-basicAuthorizer
+            resultTtlInSeconds: 0
+            identitySource: method.request.header.Authorization
+            type: token
+
   getUploadedList:
     handler: handler.getUploadedList
     events:

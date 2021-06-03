@@ -40,6 +40,7 @@
     "eslint-plugin-jest": "^24.3.5",
     "pg": "^8.5.1",
     "pg-format": "^1.0.4",
+    "serverless-dotenv-plugin": "^3.9.0",
     "serverless-s3-deploy": "^0.10.0",
     "uuid": "^8.3.2"
   }
