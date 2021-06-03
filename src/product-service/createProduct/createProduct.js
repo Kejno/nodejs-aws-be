@@ -33,8 +33,8 @@ export const createProduct = async (event) => {
 
         return createResponse(200, { ...newProduct.rows[0], count: newProductStock.rows[0].count });
 
-
     } catch (error) {
+        console.log(error);
         await client.query('ROLLBACK');
         return createResponse(500, error, true);
 
