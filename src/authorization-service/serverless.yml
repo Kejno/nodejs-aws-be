@@ -21,10 +21,6 @@ functions:
   basicAuthorizer:
     handler: handler.basicAuthorizer
 
-resources:
-  Outputs:
-    authorizationArn:
-      Value: !GetAtt AuthorizationLambdaFunction.Arn
 
 
 

@@ -10,7 +10,7 @@
         const [, encodedToken] = event.authorizationToken.split('Basic ');
 
         if (!encodedToken) {
-            callback(null, generatePolicy(encodedToken, 'Deny', event.methodArn));
+            callback(null, generatePolicy(encodedToken, event.methodArn, 'Deny'));
           }
 
         const token = Buffer.from(encodedToken, 'base64').toString();
@@ -18,9 +18,8 @@
         console.log(token);
 
         const storedUserPassword = process.env[username];
-        const effect = !storedPassword || storedUserPassword !== password ? 'Deny' : 'Allow';
-
-        const policy = generatePolicy(encodedToken, effect, event.methodArn);
+        const effect = !storedUserPassword || storedUserPassword !== password ? 'Deny' : 'Allow';
+        const policy = generatePolicy(encodedToken, event.methodArn, effect);
         callback(null, policy);
 
         
@@ -28,11 +27,6 @@
         callback('Unauthorized: ' + error.message);
     }
   
-    // if (user === 'ilyavalasiuk' && password === process.env['ilyavalasiuk']) {
-    //   callback(null, generatePolicy('user', 'Allow', event.methodArn))
-    // } else {
-    //   callback(null, generatePolicy('user', 'Deny', event.methodArn))
-    // }
   };
 
   
